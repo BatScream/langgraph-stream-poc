@@ -1,13 +1,75 @@
 [project]
-name = "langgraph-stream-poc"
+name = "soprano-streaming"
 version = "0.1.0"
-description = "Add your description here"
+description = "Real-time streaming wrapper for soprano-sdk workflows. Replaces WorkflowTool.execute() with a generator-based API that yields typed events as each graph node executes."
 readme = "README.md"
 requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Clement Lloyd"},
+]
+keywords = [
+    "soprano-sdk",
+    "langgraph",
+    "streaming",
+    "sse",
+    "workflow",
+    "ai",
+    "chatbot",
+    "server-sent-events",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Framework :: FastAPI",
+]
 dependencies = [
-    "soprano-sdk==0.2.70",
+    "soprano-sdk>=0.2.70",
+]
+
+[project.urls]
+Homepage = "https://github.com/clementlloyd/soprano-streaming"
+Documentation = "https://github.com/clementlloyd/soprano-streaming#readme"
+Repository = "https://github.com/clementlloyd/soprano-streaming"
+Issues = "https://github.com/clementlloyd/soprano-streaming/issues"
+Changelog = "https://github.com/clementlloyd/soprano-streaming/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+sse = [
+    "sse-starlette>=2.0.0",
+]
+examples = [
+    "soprano-streaming[sse]",
     "fastapi>=0.115.0",
     "uvicorn>=0.30.0",
-    "sse-starlette>=2.0.0",
     "httpx>=0.27.0",
 ]
+dev = [
+    "soprano-streaming[examples]",
+    "pytest>=8.0",
+    "pytest-mock>=3.14",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "soprano_streaming/",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["soprano_streaming"]
